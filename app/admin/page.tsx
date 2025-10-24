@@ -15,8 +15,6 @@ import {
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import PatronMaster from "@/components/part/patron-master"
-
 
 
 export default async function Page() {
@@ -55,10 +53,7 @@ export default async function Page() {
             <div className="bg-muted/50 aspect-video rounded-xl" />
             <div className="bg-muted/50 aspect-video rounded-xl" />
           </div>
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >
-            <div className="p-4">Main Content Area</div>
-            <PatronMaster />
-          </div>
+          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
         </div>
       </SidebarInset>
     </SidebarProvider>

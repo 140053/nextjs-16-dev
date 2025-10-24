@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+// user model
 model User {
   id        Int     @id @default(autoincrement())
   email     String  @unique
@@ -30,4 +30,190 @@ enum Role {
   ADMIN
   STAFF
   USER
+}
+
+
+model patron_master {
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt
+  name          String    @db.VarChar(255)
+  address       String    @db.VarChar(255)
+  Degree_Course String    @db.VarChar(255)
+  User_Class    String    @db.VarChar(100)
+  Year_Level    String    @db.VarChar(100)
+  IDnum         String    @unique @db.VarChar(100)
+  DateApplied   String?   @db.VarChar(255)
+  DateExpired   String?   @db.VarChar(255)
+  email         String?   @db.VarChar(255)
+  gender        users_gender?
+  campus        String    @db.VarChar(255)
+  Bkloan        String?   @db.VarChar(255)
+  telephone     String?   @db.VarChar(255)
+  Overdue       String?   @db.VarChar(255)
+  remarks       String?   @db.VarChar(255)
+  suspended     String?   @db.VarChar(255)
+  tag           String?   @db.VarChar(255)
+  photo         String?   @db.VarChar(150)
+  esig          String?   @db.VarChar(150)
+  reg_date      DateTime? @default(now()) @db.Timestamp(0)
+
+  // Relations
+  userlogs        userlogs[]
+  libman_patrons  libman_patron[]
+  lib_requests    lib_request[]
+  lib_pendings    lib_pending[]
+}
+
+model libman_patron {
+  id         Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id  Int           @db.UnsignedInt
+  reg_date   DateTime?     @default(now()) @db.Timestamp(0)
+
+  patron     patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+}
+
+model lib_request {
+  id         Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id  Int           @db.UnsignedInt
+  photo      String?       @db.VarChar(150)
+  esig       String?       @db.VarChar(150)
+  reg_date   DateTime?     @default(now()) @db.Timestamp(0)
+
+  patron     patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+}
+
+model lib_pending {
+  id         Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id  Int           @db.UnsignedInt
+  photo      String?       @db.VarChar(150)
+  esig       String?       @db.VarChar(150)
+  reg_date   DateTime?     @default(now()) @db.Timestamp(0)
+
+  patron     patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+}
+
+model lib_forprint {
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt
+  name          String    @db.VarChar(255)
+  address       String    @db.VarChar(255)
+  Degree_Course String    @db.VarChar(255)
+  User_Class    String    @db.VarChar(100)
+  Year_Level    String    @db.VarChar(100)
+  IDnum         String    @db.VarChar(100)
+  DateApplied   String?   @db.VarChar(255)
+  DateExpired   String?   @db.VarChar(255)
+  email         String?   @db.VarChar(255)
+  gender        users_gender?
+  campus        String    @db.VarChar(255)
+  Bkloan        String?   @db.VarChar(255)
+  telephone     String?   @db.VarChar(255)
+  Overdue       String?   @db.VarChar(255)
+  remarks       String?   @db.VarChar(255)
+  suspended     String?   @db.VarChar(255)
+  tag           String?   @db.VarChar(255)
+  photo         String?   @db.VarChar(150)
+  esig          String?   @db.VarChar(150)
+  reg_date      DateTime? @default(now()) @db.Timestamp(0)
+}
+
+
+
+enum users_gender {
+  Male
+  Female
+  Other
+}
+
+
+
+
+// Collection management models
+
+
+model colleges {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name       String    @db.VarChar(255)
+  code       String    @unique(map: "colleges_code_unique") @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  courses    courses[]
+}
+
+model courses {
+  id         BigInt     @id @default(autoincrement()) @db.UnsignedBigInt
+  college_id BigInt     @db.UnsignedBigInt
+  name       String     @db.VarChar(255)
+  code       String     @unique(map: "courses_code_unique") @db.VarChar(255)
+  created_at DateTime?  @db.Timestamp(0)
+  updated_at DateTime?  @db.Timestamp(0)
+  colleges   colleges   @relation(fields: [college_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "courses_college_id_foreign")
+  subjects   subjects[]
+
+  @@index([college_id], map: "courses_college_id_foreign")
+}
+
+model subjects {
+  id                     BigInt                   @id @default(autoincrement()) @db.UnsignedBigInt
+  name                   String                   @db.VarChar(255)
+  code                   String                   @unique(map: "subjects_code_unique") @db.VarChar(255)
+  course_id              BigInt                   @db.UnsignedBigInt
+  created_at             DateTime?                @db.Timestamp(0)
+  updated_at             DateTime?                @db.Timestamp(0)
+  collection_by_subjects collection_by_subjects[]
+  courses                courses                  @relation(fields: [course_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "subjects_course_id_foreign")
+
+  @@index([course_id], map: "subjects_course_id_foreign")
+}
+
+model collection_by_subjects {
+  id                   BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  subject_id           BigInt    @db.UnsignedBigInt
+  bkid                 String    @db.VarChar(255)
+  title                String    @db.VarChar(255)
+  author               String?   @db.Text
+  contributor          String?   @db.Text
+  publisher            String?   @db.VarChar(255)
+  copyrights           String?   @db.VarChar(255)
+  isbn                 String?   @db.VarChar(255)
+  call_number          String?   @db.VarChar(255)
+  accession_number     String?   @db.VarChar(255)
+  edition              String?   @db.VarChar(255)
+  place_of_publication String?   @db.VarChar(255)
+  material_type        String?   @db.VarChar(255)
+  code                 String?   @db.VarChar(255)
+  is_fil               Boolean   @default(false)
+  created_at           DateTime? @db.Timestamp(0)
+  updated_at           DateTime? @db.Timestamp(0)
+  subjects             subjects  @relation(fields: [subject_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "collection_by_subjects_subject_id_foreign")
+
+  @@index([subject_id], map: "collection_by_subjects_subject_id_foreign")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Logs 
+
+model userlogs {
+  id               Int    @id @default(autoincrement()) @db.UnsignedInt
+  user_id          Int    @db.UnsignedInt
+  transaction_type Int       @db.UnsignedTinyInt
+  created_at       DateTime? @db.Timestamp(0)
+  updated_at       DateTime? @db.Timestamp(0)
+  patron_master    patron_master     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "userlogs_user_id_foreign")
+
+  @@index([user_id], map: "userlogs_user_id_foreign")
 }
