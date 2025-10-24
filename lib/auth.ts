@@ -16,8 +16,11 @@ export async function loginUser(email: string, password: string) {
 
   const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "1d" })
   ;(await cookies()).set("session", token, { httpOnly: true, path: "/", maxAge: 86400 })
-  return { id: user.id, email: user.email, name: user.name }
+  return { id: user.id, email: user.email, name: user.name, avatar: user.avatar, role: user.role }
 }
+
+
+
 
 export async function getSession() {
   const token = (await cookies()).get("session")?.value

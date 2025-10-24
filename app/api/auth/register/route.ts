@@ -22,8 +22,8 @@ export async function POST(req: Request) {
 
     // 4️⃣ Create user
     const user = await prisma.user.create({
-      data: { email, password: hashed, name },
-      select: { id: true, email: true, name: true },
+      data: { email, password: hashed, name, role: "USER", avatar: "/default-avatar.png" },
+      select: { id: true, email: true, name: true, avatar: true, role: true },
     })
 
     return NextResponse.json({ message: "User registered", user })

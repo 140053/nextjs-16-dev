@@ -21,5 +21,13 @@ model User {
   password  String
   name      String?
   avatar    String?
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
+}
+
+
+enum Role {
+  ADMIN
+  STAFF
+  USER
 }
