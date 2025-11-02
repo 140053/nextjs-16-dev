@@ -1,28 +1,34 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Separator } from "@/components/ui/separator"
 import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import PatronMaster from "@/components/part/no-api/patron-master"
+import { CollectionTable } from "@/components/collection/data-table/data-table"
+import { SubjectCols } from "@/components/collection/data-table/col-table"
+import { getSubjectByCourse } from "@/components/part/no-api/collection-master"
 
 
 
 
-export default async function Page() {
+
+export default async function Page({ params }: { params: Promise<{ curid: string }> }) {
   const user = await getSession()
   if (!user) redirect("/login")
+  const { curid} = await params;
+ const data = await getSubjectByCourse(curid ? Number(curid) : 0);
+  
   
 
   return (
@@ -40,12 +46,16 @@ export default async function Page() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    Collection Management
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>College</BreadcrumbPage>
+                </BreadcrumbItem>
+                 <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Details</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -54,7 +64,7 @@ export default async function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           
           <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >            
-            <PatronMaster />
+            <CollectionTable columns={SubjectCols} data={data ?? []}  />    
           </div>
         </div>
       </SidebarInset>

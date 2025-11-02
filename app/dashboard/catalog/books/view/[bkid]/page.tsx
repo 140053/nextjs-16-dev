@@ -15,14 +15,18 @@ import {
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import PatronMaster from "@/components/part/no-api/patron-master"
+import { getBookById } from "@/lib/utils/patron"
+import BookDetails from "@/components/catalog/books/BookDetails"
 
 
 
 
-export default async function Page() {
+export default async function Page({ params }: { params: Promise<{ bkid: string }> }) {
   const user = await getSession()
   if (!user) redirect("/login")
+  const { bkid} = await params;
+ const book = await getBookById(bkid ? Number(bkid) : 0);
+  
   
 
   return (
@@ -40,12 +44,16 @@ export default async function Page() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    Catalog 
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>Books</BreadcrumbPage>
+                </BreadcrumbItem>
+                 <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Details</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -54,7 +62,7 @@ export default async function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           
           <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >            
-            <PatronMaster />
+           <BookDetails book={book} />
           </div>
         </div>
       </SidebarInset>

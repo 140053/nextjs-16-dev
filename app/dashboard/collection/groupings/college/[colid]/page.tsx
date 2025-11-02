@@ -15,14 +15,21 @@ import {
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import PatronMaster from "@/components/part/no-api/patron-master"
+import { getBookById } from "@/lib/utils/patron"
+import { CollectionTable } from "@/components/collection/data-table/data-table"
+import { OtherColumns } from "@/components/collection/data-table/col-table"
+import { getCourseByCollege } from "@/components/part/no-api/collection-master"
 
 
 
 
-export default async function Page() {
+
+export default async function Page({ params }: { params: Promise<{ colid: string }> }) {
   const user = await getSession()
   if (!user) redirect("/login")
+  const { colid} = await params;
+ const data = await getCourseByCollege(colid ? Number(colid) : 0);
+  
   
 
   return (
@@ -40,12 +47,16 @@ export default async function Page() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    Collection Management
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>College</BreadcrumbPage>
+                </BreadcrumbItem>
+                 <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Details</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -54,7 +65,7 @@ export default async function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           
           <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >            
-            <PatronMaster />
+            <CollectionTable columns={OtherColumns} data={data ?? []}  />    
           </div>
         </div>
       </SidebarInset>

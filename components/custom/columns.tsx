@@ -13,12 +13,12 @@ export type Patron = {
   User_Class: string
   Year_Level: string
   IDnum: string
-  DateApplied?: string | null
-  DateExpired?: string | null
+  DateApplied?: string | Date | null
+  DateExpired?: string | Date | null
   email?: string | null
   gender?: string | null
   campus: string
-  reg_date?: string | null
+  reg_date?: string | Date | null
 }
 
 export const columns: ColumnDef<Patron>[] = [

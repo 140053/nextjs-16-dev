@@ -2,9 +2,7 @@
 
 import * as React from "react"
 import {
-  IdCard,
-  BookOpen,
-  Bot, Frame,
+  IdCard, SquareLibrary, Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
@@ -22,6 +20,8 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { ThemeToggleFloatLeft } from "./custom/theme-toggle"
+
 
 // This is sample data.
 const data = {
@@ -66,20 +66,20 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Catalog",
       url: "#",
-      icon: Bot,
+      icon: SquareLibrary,
       items: [
         {
-          title: "Genesis",
+          title: "Books",
+          url: "/dashboard/catalog/books",
+        },
+        {
+          title: "Thesis",
           url: "#",
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
+          title: "Serials",
           url: "#",
         },
       ],
@@ -98,6 +98,21 @@ const data = {
           url: "/dashboard/patron/list",
         },        
       ],
+    },
+    {
+      title: "Collection Management",
+      url: "#",
+      icon: PieChart,
+      items:[
+        {
+          title: "Dashboard",
+          url: "/dashboard/collection/dashboard",
+        },
+        {
+          title: "Groupings",
+          url: "/dashboard/collection/groupings",
+        }
+      ]
     },
     {
       title: "Settings",
@@ -156,6 +171,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser />
       </SidebarFooter>
       <SidebarRail />
+      <ThemeToggleFloatLeft />
     </Sidebar>
   )
 }

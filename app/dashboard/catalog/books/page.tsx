@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import PatronMaster from "@/components/part/no-api/patron-master"
+import BookMaster from "@/components/part/with-api/books-list"
 
 
 
@@ -40,12 +40,12 @@ export default async function Page() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    Catalog
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>Books</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -54,7 +54,7 @@ export default async function Page() {
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           
           <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >            
-            <PatronMaster />
+            <BookMaster />
           </div>
         </div>
       </SidebarInset>

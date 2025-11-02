@@ -191,6 +191,44 @@ model collection_by_subjects {
 
 
 
+model books {
+  bkID           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  Title          String?   @db.VarChar(255)
+  Maintext       String?   @db.Text
+  Fil            Int       @default(0) @db.SmallInt
+  Ref            Int       @default(0) @db.SmallInt
+  Bio            Int       @default(0) @db.SmallInt
+  Fic            Int       @default(0) @db.SmallInt
+  Res            Int       @default(0) @db.SmallInt
+  Copy           Int       @default(1) @db.SmallInt
+  Inn            Int       @default(1) @db.SmallInt
+  t_Out          Int       @default(0) @db.SmallInt
+  t_TimesOut     Int       @default(0) @db.SmallInt
+  images         String?   @db.VarChar(80)
+  tm             String?   @db.VarChar(15)
+  gc             Int       @default(0) @db.SmallInt
+  tr             Int       @default(0) @db.SmallInt
+  easy           Int       @default(0) @db.SmallInt
+  circ           Int       @default(0) @db.SmallInt
+  fr             Int       @default(0) @db.SmallInt
+  sm             Int       @default(0) @db.SmallInt
+  entered_by     String?   @db.VarChar(45)
+  date_entered   DateTime  @default(now()) @db.Timestamp(0)
+  updated_by     String?   @db.VarChar(45)
+  date_updated   DateTime? @db.DateTime(0)
+  schl           Int       @default(0) @db.SmallInt
+  acquisitionmode String?  @db.VarChar(15)
+  donor          String?   @db.VarChar(50)
+  branch         String?   @db.VarChar(30)
+  restricted     Boolean   @default(false)
+  filsts         String?   @db.VarChar(45)
+  coding         String?   @db.VarChar(50)
+  
+}
+
+
+
+
 
 
 
