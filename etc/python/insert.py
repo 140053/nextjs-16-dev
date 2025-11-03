@@ -2,15 +2,15 @@ import mysql.connector
 
 # ---------- DATABASE CONNECTIONS ----------
 db1 = mysql.connector.connect(
-    host="10.2.42.5",
-    user="ken",
+    host="localhost",
+    user="root",
     password="140053ken!",
     database="db_a84cf7_cbsua",   # source DB
     port=3306
 )
 
 db2 = mysql.connector.connect(
-    host="10.2.42.5",
+    host="localhost",
     user="root",
     password="140053ken!",
     database="nextjs16"    # destination DB
@@ -20,7 +20,7 @@ src = db1.cursor(dictionary=True)
 dest = db2.cursor(dictionary=True)
 
 # ---------- FETCH DATA FROM DATABASE1 ----------
-src.execute("SELECT * FROM Books")
+src.execute("SELECT * FROM books")
 rows = src.fetchall()
 
 print(f"Fetched {len(rows)} rows from database1.books")

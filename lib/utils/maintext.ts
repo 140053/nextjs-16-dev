@@ -30,6 +30,17 @@ export interface BibliographicRecord {
   raw: Record<string, string>;
 }
 
+export interface bookSimple {
+  subject_id: number | bigint;
+  bkid: string;
+  title: string;
+  author?: string;
+  contributor?: string;
+  publisher?: string;
+  isbn?: string;
+  is_fil?: boolean;
+}
+
 // ------------------------------------------------------
 // 2. Mapping table: MARC-like numeric → semantic names
 // ------------------------------------------------------
@@ -162,4 +173,49 @@ function emptyRecord(): BibliographicRecord {
     carrierType: null,
     raw: {},
   };
+}
+
+
+export async function addBookSubject(bib: any, subjectId: number) {
+  if (!bib) {
+    alert("No bibliographic data found.");
+    return;
+  }
+
+  const payload = {
+    subject_id: subjectId,         // 👈 You decide where this comes from
+    bkid: bib.bkid ?? "",
+    title: bib.title ?? "",
+    author: bib.author ?? "",
+    contributor: bib.editor ?? null,
+    publisher: bib.publisher ?? null,
+    copyrights: bib.year ?? null,
+    isbn: bib.isbn ?? null,
+    call_number: bib.callNumber ?? null,
+    accession_number: bib.accessionNumber ?? null,
+    edition: bib.edition ?? null,
+    place_of_publication: bib.place ?? null,
+    material_type: bib.materialType ?? null,
+    code: bib.code ?? null,
+    is_fil: bib.isFil ?? false,
+  };
+
+  try {
+    const res = await fetch("/api/db/collection/books/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      alert("Error: " + data.message);
+      return;
+    }
+
+    alert("Book added successfully!");
+    return data;
+  } catch (error: any) {
+    alert("Failed: " + error.message);
+  }
 }

@@ -23,11 +23,13 @@ import { BookDataTableToolbar } from "./book-data-table-toolbar"
 interface DataTableProps<TData extends object, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  toolbar?: React.ReactNode
 }
 
 export function BookDataTable<TData extends object, TValue>({
   columns,
   data,
+  toolbar,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -41,9 +43,10 @@ export function BookDataTable<TData extends object, TValue>({
   return (
     <div className="space-y-4">
       {/* ✅ fully typed */}
-      <BookDataTableToolbar<TData> table={table} />
+      {toolbar &&   <BookDataTableToolbar<TData> table={table} />}
+    
 
-      <div className="rounded-md border">
+      <div className="rounded-md border mt-3">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
