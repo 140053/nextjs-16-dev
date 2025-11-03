@@ -1,4 +1,18 @@
 -- CreateTable
+CREATE TABLE `User` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+    `name` VARCHAR(191) NULL,
+    `avatar` VARCHAR(191) NULL,
+    `role` ENUM('ADMIN', 'STAFF', 'USER') NOT NULL DEFAULT 'USER',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    UNIQUE INDEX `User_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `patron_master` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
@@ -22,6 +36,7 @@ CREATE TABLE `patron_master` (
     `esig` VARCHAR(150) NULL,
     `reg_date` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
 
+    UNIQUE INDEX `patron_master_IDnum_key`(`IDnum`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -114,6 +129,7 @@ CREATE TABLE `subjects` (
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `code` VARCHAR(255) NOT NULL,
+    `level` ENUM('first', 'second', 'third', 'fourth', 'fifth', 'sixth') NULL,
     `course_id` BIGINT UNSIGNED NOT NULL,
     `created_at` TIMESTAMP(0) NULL,
     `updated_at` TIMESTAMP(0) NULL,
@@ -146,6 +162,43 @@ CREATE TABLE `collection_by_subjects` (
 
     INDEX `collection_by_subjects_subject_id_foreign`(`subject_id`),
     PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `books` (
+    `bkID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `Title` VARCHAR(255) NULL,
+    `Maintext` TEXT NULL,
+    `Fil` SMALLINT NOT NULL DEFAULT 0,
+    `Ref` SMALLINT NOT NULL DEFAULT 0,
+    `Bio` SMALLINT NOT NULL DEFAULT 0,
+    `Fic` SMALLINT NOT NULL DEFAULT 0,
+    `Res` SMALLINT NOT NULL DEFAULT 0,
+    `Copy` SMALLINT NOT NULL DEFAULT 1,
+    `Inn` SMALLINT NOT NULL DEFAULT 1,
+    `t_Out` SMALLINT NOT NULL DEFAULT 0,
+    `t_TimesOut` SMALLINT NOT NULL DEFAULT 0,
+    `images` VARCHAR(80) NULL,
+    `tm` VARCHAR(15) NULL,
+    `gc` SMALLINT NOT NULL DEFAULT 0,
+    `tr` SMALLINT NOT NULL DEFAULT 0,
+    `easy` SMALLINT NOT NULL DEFAULT 0,
+    `circ` SMALLINT NOT NULL DEFAULT 0,
+    `fr` SMALLINT NOT NULL DEFAULT 0,
+    `sm` SMALLINT NOT NULL DEFAULT 0,
+    `entered_by` VARCHAR(45) NULL,
+    `date_entered` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `updated_by` VARCHAR(45) NULL,
+    `date_updated` DATETIME(0) NULL,
+    `schl` SMALLINT NOT NULL DEFAULT 0,
+    `acquisitionmode` VARCHAR(15) NULL,
+    `donor` VARCHAR(50) NULL,
+    `branch` VARCHAR(30) NULL,
+    `restricted` BOOLEAN NOT NULL DEFAULT false,
+    `filsts` VARCHAR(45) NULL,
+    `coding` VARCHAR(50) NULL,
+
+    PRIMARY KEY (`bkID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable

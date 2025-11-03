@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../lib/generated/prisma"
@@ -14,10 +8,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// user model
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
   password  String
   name      String?
   avatar    String?
@@ -25,109 +18,88 @@ model User {
   createdAt DateTime @default(now())
 }
 
-
-enum Role {
-  ADMIN
-  STAFF
-  USER
-}
-
-
 model patron_master {
-  id            Int       @id @default(autoincrement()) @db.UnsignedInt
-  name          String    @db.VarChar(255)
-  address       String    @db.VarChar(255)
-  Degree_Course String    @db.VarChar(255)
-  User_Class    String    @db.VarChar(100)
-  Year_Level    String    @db.VarChar(100)
-  IDnum         String    @unique @db.VarChar(100)
-  DateApplied   String?   @db.VarChar(255)
-  DateExpired   String?   @db.VarChar(255)
-  email         String?   @db.VarChar(255)
-  gender        users_gender?
-  campus        String    @db.VarChar(255)
-  Bkloan        String?   @db.VarChar(255)
-  telephone     String?   @db.VarChar(255)
-  Overdue       String?   @db.VarChar(255)
-  remarks       String?   @db.VarChar(255)
-  suspended     String?   @db.VarChar(255)
-  tag           String?   @db.VarChar(255)
-  photo         String?   @db.VarChar(150)
-  esig          String?   @db.VarChar(150)
-  reg_date      DateTime? @default(now()) @db.Timestamp(0)
-
-  // Relations
-  userlogs        userlogs[]
-  libman_patrons  libman_patron[]
-  lib_requests    lib_request[]
-  lib_pendings    lib_pending[]
+  id             Int             @id @default(autoincrement()) @db.UnsignedInt
+  name           String          @db.VarChar(255)
+  address        String          @db.VarChar(255)
+  Degree_Course  String          @db.VarChar(255)
+  User_Class     String          @db.VarChar(100)
+  Year_Level     String          @db.VarChar(100)
+  IDnum          String          @unique @db.VarChar(100)
+  DateApplied    String?         @db.VarChar(255)
+  DateExpired    String?         @db.VarChar(255)
+  email          String?         @db.VarChar(255)
+  gender         users_gender?
+  campus         String          @db.VarChar(255)
+  Bkloan         String?         @db.VarChar(255)
+  telephone      String?         @db.VarChar(255)
+  Overdue        String?         @db.VarChar(255)
+  remarks        String?         @db.VarChar(255)
+  suspended      String?         @db.VarChar(255)
+  tag            String?         @db.VarChar(255)
+  photo          String?         @db.VarChar(150)
+  esig           String?         @db.VarChar(150)
+  reg_date       DateTime?       @default(now()) @db.Timestamp(0)
+  lib_pendings   lib_pending[]
+  lib_requests   lib_request[]
+  libman_patrons libman_patron[]
+  userlogs       userlogs[]
 }
 
 model libman_patron {
-  id         Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id  Int           @db.UnsignedInt
-  reg_date   DateTime?     @default(now()) @db.Timestamp(0)
+  id        Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id Int           @db.UnsignedInt
+  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
+  patron    patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
 
-  patron     patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+  @@index([patron_id], map: "libman_patron_patron_id_fkey")
 }
 
 model lib_request {
-  id         Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id  Int           @db.UnsignedInt
-  photo      String?       @db.VarChar(150)
-  esig       String?       @db.VarChar(150)
-  reg_date   DateTime?     @default(now()) @db.Timestamp(0)
+  id        Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id Int           @db.UnsignedInt
+  photo     String?       @db.VarChar(150)
+  esig      String?       @db.VarChar(150)
+  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
+  patron    patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
 
-  patron     patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+  @@index([patron_id], map: "lib_request_patron_id_fkey")
 }
 
 model lib_pending {
-  id         Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id  Int           @db.UnsignedInt
-  photo      String?       @db.VarChar(150)
-  esig       String?       @db.VarChar(150)
-  reg_date   DateTime?     @default(now()) @db.Timestamp(0)
+  id        Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id Int           @db.UnsignedInt
+  photo     String?       @db.VarChar(150)
+  esig      String?       @db.VarChar(150)
+  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
+  patron    patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
 
-  patron     patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+  @@index([patron_id], map: "lib_pending_patron_id_fkey")
 }
 
 model lib_forprint {
-  id            Int       @id @default(autoincrement()) @db.UnsignedInt
-  name          String    @db.VarChar(255)
-  address       String    @db.VarChar(255)
-  Degree_Course String    @db.VarChar(255)
-  User_Class    String    @db.VarChar(100)
-  Year_Level    String    @db.VarChar(100)
-  IDnum         String    @db.VarChar(100)
-  DateApplied   String?   @db.VarChar(255)
-  DateExpired   String?   @db.VarChar(255)
-  email         String?   @db.VarChar(255)
+  id            Int           @id @default(autoincrement()) @db.UnsignedInt
+  name          String        @db.VarChar(255)
+  address       String        @db.VarChar(255)
+  Degree_Course String        @db.VarChar(255)
+  User_Class    String        @db.VarChar(100)
+  Year_Level    String        @db.VarChar(100)
+  IDnum         String        @db.VarChar(100)
+  DateApplied   String?       @db.VarChar(255)
+  DateExpired   String?       @db.VarChar(255)
+  email         String?       @db.VarChar(255)
   gender        users_gender?
-  campus        String    @db.VarChar(255)
-  Bkloan        String?   @db.VarChar(255)
-  telephone     String?   @db.VarChar(255)
-  Overdue       String?   @db.VarChar(255)
-  remarks       String?   @db.VarChar(255)
-  suspended     String?   @db.VarChar(255)
-  tag           String?   @db.VarChar(255)
-  photo         String?   @db.VarChar(150)
-  esig          String?   @db.VarChar(150)
-  reg_date      DateTime? @default(now()) @db.Timestamp(0)
+  campus        String        @db.VarChar(255)
+  Bkloan        String?       @db.VarChar(255)
+  telephone     String?       @db.VarChar(255)
+  Overdue       String?       @db.VarChar(255)
+  remarks       String?       @db.VarChar(255)
+  suspended     String?       @db.VarChar(255)
+  tag           String?       @db.VarChar(255)
+  photo         String?       @db.VarChar(150)
+  esig          String?       @db.VarChar(150)
+  reg_date      DateTime?     @default(now()) @db.Timestamp(0)
 }
-
-
-
-enum users_gender {
-  Male
-  Female
-  Other
-}
-
-
-
-
-// Collection management models
-
 
 model colleges {
   id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
@@ -154,7 +126,8 @@ model courses {
 model subjects {
   id                     BigInt                   @id @default(autoincrement()) @db.UnsignedBigInt
   name                   String                   @db.VarChar(255)
-  code                   String                   @unique(map: "subjects_code_unique") @db.VarChar(255)
+  code                   String                   @db.VarChar(255)
+  level                  level?
   course_id              BigInt                   @db.UnsignedBigInt
   created_at             DateTime?                @db.Timestamp(0)
   updated_at             DateTime?                @db.Timestamp(0)
@@ -188,70 +161,68 @@ model collection_by_subjects {
   @@index([subject_id], map: "collection_by_subjects_subject_id_foreign")
 }
 
-
-
-
 model books {
-  bkID           BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
-  Title          String?   @db.VarChar(255)
-  Maintext       String?   @db.Text
-  Fil            Int       @default(0) @db.SmallInt
-  Ref            Int       @default(0) @db.SmallInt
-  Bio            Int       @default(0) @db.SmallInt
-  Fic            Int       @default(0) @db.SmallInt
-  Res            Int       @default(0) @db.SmallInt
-  Copy           Int       @default(1) @db.SmallInt
-  Inn            Int       @default(1) @db.SmallInt
-  t_Out          Int       @default(0) @db.SmallInt
-  t_TimesOut     Int       @default(0) @db.SmallInt
-  images         String?   @db.VarChar(80)
-  tm             String?   @db.VarChar(15)
-  gc             Int       @default(0) @db.SmallInt
-  tr             Int       @default(0) @db.SmallInt
-  easy           Int       @default(0) @db.SmallInt
-  circ           Int       @default(0) @db.SmallInt
-  fr             Int       @default(0) @db.SmallInt
-  sm             Int       @default(0) @db.SmallInt
-  entered_by     String?   @db.VarChar(45)
-  date_entered   DateTime  @default(now()) @db.Timestamp(0)
-  updated_by     String?   @db.VarChar(45)
-  date_updated   DateTime? @db.DateTime(0)
-  schl           Int       @default(0) @db.SmallInt
-  acquisitionmode String?  @db.VarChar(15)
-  donor          String?   @db.VarChar(50)
-  branch         String?   @db.VarChar(30)
-  restricted     Boolean   @default(false)
-  filsts         String?   @db.VarChar(45)
-  coding         String?   @db.VarChar(50)
-  
+  bkID            BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  Title           String?   @db.VarChar(255)
+  Maintext        String?   @db.Text
+  Fil             Int       @default(0) @db.SmallInt
+  Ref             Int       @default(0) @db.SmallInt
+  Bio             Int       @default(0) @db.SmallInt
+  Fic             Int       @default(0) @db.SmallInt
+  Res             Int       @default(0) @db.SmallInt
+  Copy            Int       @default(1) @db.SmallInt
+  Inn             Int       @default(1) @db.SmallInt
+  t_Out           Int       @default(0) @db.SmallInt
+  t_TimesOut      Int       @default(0) @db.SmallInt
+  images          String?   @db.VarChar(80)
+  tm              String?   @db.VarChar(15)
+  gc              Int       @default(0) @db.SmallInt
+  tr              Int       @default(0) @db.SmallInt
+  easy            Int       @default(0) @db.SmallInt
+  circ            Int       @default(0) @db.SmallInt
+  fr              Int       @default(0) @db.SmallInt
+  sm              Int       @default(0) @db.SmallInt
+  entered_by      String?   @db.VarChar(45)
+  date_entered    DateTime  @default(now()) @db.Timestamp(0)
+  updated_by      String?   @db.VarChar(45)
+  date_updated    DateTime? @db.DateTime(0)
+  schl            Int       @default(0) @db.SmallInt
+  acquisitionmode String?   @db.VarChar(15)
+  donor           String?   @db.VarChar(50)
+  branch          String?   @db.VarChar(30)
+  restricted      Boolean   @default(false)
+  filsts          String?   @db.VarChar(45)
+  coding          String?   @db.VarChar(50)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Logs 
-
 model userlogs {
-  id               Int    @id @default(autoincrement()) @db.UnsignedInt
-  user_id          Int    @db.UnsignedInt
-  transaction_type Int       @db.UnsignedTinyInt
-  created_at       DateTime? @db.Timestamp(0)
-  updated_at       DateTime? @db.Timestamp(0)
-  patron_master    patron_master     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "userlogs_user_id_foreign")
+  id               Int           @id @default(autoincrement()) @db.UnsignedInt
+  user_id          Int           @db.UnsignedInt
+  transaction_type Int           @db.UnsignedTinyInt
+  created_at       DateTime?     @db.Timestamp(0)
+  updated_at       DateTime?     @db.Timestamp(0)
+  patron_master    patron_master @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "userlogs_user_id_foreign")
 
   @@index([user_id], map: "userlogs_user_id_foreign")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  USER
+}
+
+enum users_gender {
+  Male
+  Female
+  Other
+}
+
+enum level {
+  first
+  second
+  third
+  fourth
+  fifth
+  sixth
 }
