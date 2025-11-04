@@ -27,6 +27,7 @@ export default function ProccessRequest({ id, onProccess }: Sid) {
         toast.error(data.error || "Failed to transfer data.");
       }
     } catch (error) {
+      console.error("Error transferring data:", error);
       toast.error("Failed to transfer data.");
     }
   };

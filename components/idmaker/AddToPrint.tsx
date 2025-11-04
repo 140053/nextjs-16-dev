@@ -31,7 +31,8 @@ const AddToPrint = ({id, onProccess}:Sid) => {
             toast.error(data.error || "Failed to transfer data.");
         }
         } catch (error) {
-        toast.error("Failed to transfer data.");
+            console.error("Error transferring data:", error);
+            toast.error("Failed to transfer data.");
         }
     };
 

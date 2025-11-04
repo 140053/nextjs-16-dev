@@ -143,6 +143,7 @@ model collection_by_subjects {
   bkid                 String    @db.VarChar(255)
   title                String    @db.VarChar(255)
   author               String?   @db.Text
+  editor               String?   @db.VarChar(255)
   contributor          String?   @db.Text
   publisher            String?   @db.VarChar(255)
   copyrights           String?   @db.VarChar(255)

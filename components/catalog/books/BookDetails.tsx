@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { parseMaintext } from "@/lib/utils/maintext";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 
 export interface Book {
@@ -151,7 +152,9 @@ export default function BookDetails({ book }: { book: Book | null }) {
                 {book.images && (
                     <div>
                         <p className="font-medium mb-1">Cover</p>
-                        <img
+                        <Image
+                        width={200}
+                        height={300}
                             src={`/uploads/books/${book.images}`}
                             alt="Book Cover"
                             className="max-h-64 rounded-md border"

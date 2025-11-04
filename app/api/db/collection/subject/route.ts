@@ -8,6 +8,7 @@ export async function GET(req: Request) {
         id: true,
         name: true,
         code: true,
+        level: true,
         courses: {
           select: {
             id: true,

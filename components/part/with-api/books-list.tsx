@@ -12,7 +12,7 @@ export default async function BookMaster() {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-4">Book List</h1>
-       <BookDataTable columns={columns} data={data} /> 
+       <BookDataTable columns={columns} data={data} toolbar={true} /> 
     </div>
   );
 }

@@ -13,8 +13,6 @@ import { Book } from "@/components/custom/books";
 import { addBookSubject, parseMaintext } from "@/lib/utils/maintext";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { CollectionTable } from "../collection/data-table/data-table";
-import { BooklistColumns } from "../collection/data-table/col-table";
 
 
 interface SelBooks {

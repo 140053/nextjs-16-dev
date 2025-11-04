@@ -2,9 +2,6 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import DashboardPage from "@/components/dashboardpage";
 
-import { AddBookBySubForm } from "@/components/collection/CollectionUI";
-import { SearchBar } from "@/components/custom/searchBar";
-import GetBook from "@/components/collection/getbook";
 import DdcCharts from "@/components/collection/DdcCharts";
 import { Card, CardHeader } from "@/components/ui/card";
 

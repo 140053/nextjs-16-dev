@@ -44,6 +44,7 @@ const PhotoUpload = () => {
         toast.error(data.error || "Upload failed.");
       }
     } catch (error) {
+      console.error("Error uploading file:", error);
       toast.error("Error uploading file.");
     } finally {
       setUploading(false);

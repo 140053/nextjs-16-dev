@@ -66,7 +66,7 @@ with open("title.csv", "r", encoding="utf-8") as f:
         if book and len(book) > 0:
             b = book[0]
 
-            print(Fore.GREEN + f"FOUND: {b['Title']}" + Style.RESET_ALL)
+            #print(Fore.GREEN + f"FOUND: {b['Title']}" + Style.RESET_ALL)
 
             parsed = parse_biblio(b["Maintext"])
             #print(parsed)
@@ -78,7 +78,7 @@ with open("title.csv", "r", encoding="utf-8") as f:
             )
 
             if success:
-                print(Fore.GREEN + "Inserted into collection_by_subjects!" + Style.RESET_ALL)
+                print(Fore.GREEN + f"Inserted : {b['Title']}" + Style.RESET_ALL)
             else:
                 print(Fore.RED + "Insert failed!" + Style.RESET_ALL)
 

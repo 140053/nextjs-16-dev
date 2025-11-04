@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import { getBookById } from "@/lib/utils/patron"
 import { CollectionTable } from "@/components/collection/data-table/data-table"
 import { OtherColumns } from "@/components/collection/data-table/col-table"
 import { getCourseByCollege } from "@/components/part/no-api/collection-master"

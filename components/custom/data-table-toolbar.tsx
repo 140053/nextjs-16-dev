@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { X, ChevronLeft, ChevronRight, Download } from "lucide-react"
+import { X, Download } from "lucide-react"
 import { Table } from "@tanstack/react-table"
 import {
   Select,

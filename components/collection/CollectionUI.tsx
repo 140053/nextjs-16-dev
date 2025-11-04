@@ -1,8 +1,5 @@
 "use client";
 
-import { ArrowRightIcon, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -11,14 +8,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ButtonGroup } from "@/components/ui/button-group";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group"
 
 import { useState, useEffect } from "react";
 import { SearchBar } from "../custom/searchBar";
@@ -45,6 +34,7 @@ type Subject = {
   id: number | bigint;
   name: string;
   code: string;
+  level: string;
   courses: {
     id: number | bigint;
     name: string;
@@ -167,7 +157,7 @@ export function AddBookBySubForm() {
             {filteredSubjects.length > 0 ? (
               filteredSubjects.map((sub) => (
                 <SelectItem key={sub.id.toString()} value={String(sub.id)}>
-                  {sub.code} - {sub.name}
+                  <p className="text-sm text-green-600">[{sub.level}&nbsp;year]</p> <p className="text-sm text-yellow-800">[{sub.code}] </p>- {sub.name}
                 </SelectItem>
               ))
             ) : (

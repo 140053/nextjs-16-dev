@@ -5,6 +5,7 @@ export interface BibliographicRecord {
   title: string | null;
   author: string | null;
   editor: string | null;
+  contributor?: string | null;
   place: string | null;
   publisher: string | null;
   year: string | null;
@@ -46,8 +47,9 @@ export interface bookSimple {
 // ------------------------------------------------------
 const MARC_MAP: Record<string, keyof BibliographicRecord> = {
   "001": "title",
-  "004": "editor",
-  "008": "author",
+  "008": "editor",
+  "004": "author",
+  "007": "contributor",
   "009": "place",
   "0010": "publisher",
   "0011": "year",
@@ -106,8 +108,9 @@ export function parseMaintext(maintext: string): BibliographicRecord {
   // Build final structured record
   const record: BibliographicRecord = {
     title: raw["001"] || null,
-    author: raw["008"] || null,
-    editor: raw["004"] || null,
+    author: raw["004"] || null,
+    editor: raw["008"] || null,
+    contributor: raw["007"] || null,
     place: raw["009"] || null,
     publisher: raw["0010"] || null,
     year: raw["0011"] || null,
@@ -150,6 +153,7 @@ function emptyRecord(): BibliographicRecord {
     title: null,
     author: null,
     editor: null,
+    contributor: null,
     place: null,
     publisher: null,
     year: null,
@@ -187,7 +191,8 @@ export async function addBookSubject(bib: any, subjectId: string) {
     bkid: bib.bkid ?? "",
     title: bib.title ?? "",
     author: bib.author ?? "",
-    contributor: bib.editor ?? null,
+    editor: bib.editor ?? null,
+    contributor: bib.contributor ?? null,
     publisher: bib.publisher ?? null,
     copyrights: bib.year ?? null,
     isbn: bib.isbn ?? null,

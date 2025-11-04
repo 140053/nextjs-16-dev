@@ -6,7 +6,7 @@ from datetime import datetime
 
 def get_connection():
     return mysql.connector.connect(
-        host="10.2.42.5",
+        host="localhost",
         user="root",
         password="140053ken!",
         database="nextjs16"
@@ -36,12 +36,16 @@ def getBookbyTitle(title, author, cpr):
           AND Maintext LIKE %s
     """
 
-    # Build parameters
-    params = (
-        title,
-        f"%<004>{author}<005>%",   
-        f"%<0011>{cpr}<0012>%"
-    )
+    # Normalize search inputs
+    author_clean = author.strip() if author else ""
+    cpr_clean = cpr.strip() if cpr else ""
+
+    # ✅ Build MARC tag patterns
+    # We allow ANY text before and after
+    author_pattern = f"%<004>%{author_clean}%<005>%" if author_clean else "%"
+    cpr_pattern = f"%<0011>%{cpr_clean}%<0012>%" if cpr_clean else "%"
+
+    params = (title, author_pattern, cpr_pattern)
 
     cursor.execute(sql, params)
 
