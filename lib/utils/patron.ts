@@ -11,9 +11,7 @@ export async function getAllPatrons() {
     } catch (error) {
         console.error("❌ Error fetching patrons:", error)
         throw new Error("Failed to fetch patrons")
-    } finally {
-        await prisma.$disconnect()
-    }
+    } 
 }
 
 
@@ -50,9 +48,7 @@ export async function getAllBooks() {
         console.error("❌ Error fetching patrons:", error)
         throw new Error("Failed to fetch patrons")
     }
-    finally{
-        await prisma.$disconnect();
-    }
+    
 }
 
 
@@ -81,9 +77,7 @@ export async function getBookById(id: number) {
     } catch (error) {
         console.error("❌ Error fetching book:", error);
         throw new Error("Failed to fetch book");
-    } finally {
-        await prisma.$disconnect();
-    }
+    } 
 }
 
 

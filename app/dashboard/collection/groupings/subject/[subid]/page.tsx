@@ -51,7 +51,7 @@ export default async function Page({ params }: { params: Promise<{ curid: string
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>College</BreadcrumbPage>
+                  <BreadcrumbPage>Subject</BreadcrumbPage>
                 </BreadcrumbItem>
                  <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
@@ -63,7 +63,12 @@ export default async function Page({ params }: { params: Promise<{ curid: string
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >            
+        <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min p-5" >
+            <div className="flex justify-center text-center">
+              <h1 className=" font-bold text-5xl  m-3 p-5 ">
+                List of Subject in Course
+              </h1>
+            </div>         
             <CollectionTable columns={SubjectCols} data={data ?? []}  />    
           </div>
         </div>

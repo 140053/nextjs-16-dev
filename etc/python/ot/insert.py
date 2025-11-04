@@ -2,15 +2,15 @@ import mysql.connector
 
 # ---------- DATABASE CONNECTIONS ----------
 db1 = mysql.connector.connect(
-    host="localhost",
+    host="10.2.42.10",
     user="root",
-    password="140053ken!",
+    password="140053ken",
     database="db_a84cf7_cbsua",   # source DB
-    port=3306
+    port=3307
 )
 
 db2 = mysql.connector.connect(
-    host="localhost",
+    host="10.2.42.5",
     user="root",
     password="140053ken!",
     database="nextjs16"    # destination DB

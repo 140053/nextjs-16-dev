@@ -176,7 +176,7 @@ function emptyRecord(): BibliographicRecord {
 }
 
 
-export async function addBookSubject(bib: any, subjectId: number) {
+export async function addBookSubject(bib: any, subjectId: string) {
   if (!bib) {
     alert("No bibliographic data found.");
     return;
@@ -199,6 +199,8 @@ export async function addBookSubject(bib: any, subjectId: number) {
     code: bib.code ?? null,
     is_fil: bib.isFil ?? false,
   };
+
+  console.log(payload)
 
   try {
     const res = await fetch("/api/db/collection/books/add", {

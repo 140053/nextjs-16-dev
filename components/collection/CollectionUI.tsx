@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/input-group"
 
 import { useState, useEffect } from "react";
+import { SearchBar } from "../custom/searchBar";
 
 /* TYPES --------------------------- */
 type College = {
@@ -95,7 +96,7 @@ export function AddBookBySubForm() {
     : [];
 
   return (
-    <div className="flex flex-col justify-center max-w-md">
+    <div className="flex flex-col justify-center ">
       <ButtonGroup className="w-full">
         {/* ✅ SELECT COLLEGE */}
         <Select
@@ -159,15 +160,13 @@ export function AddBookBySubForm() {
           disabled={!selectedCourse}
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select Subject">
-              {selectedSubject}
-            </SelectValue>
+            <SelectValue placeholder="Select Subject" />
           </SelectTrigger>
 
           <SelectContent>
             {filteredSubjects.length > 0 ? (
               filteredSubjects.map((sub) => (
-                <SelectItem key={sub.id.toString()} value={String(sub.code)}>
+                <SelectItem key={sub.id.toString()} value={String(sub.id)}>
                   {sub.code} - {sub.name}
                 </SelectItem>
               ))
@@ -179,22 +178,11 @@ export function AddBookBySubForm() {
           </SelectContent>
         </Select>
       </ButtonGroup>
-      <ButtonGroup className="w-full">
-        {/* QTY + BUTTON */}
-        <div className="flex gap-2 mt-2">
-          <div className="grid w-full max-w-sm gap-6">
-            <InputGroup>
-              <InputGroupInput placeholder="Search..." />
-              <InputGroupAddon>
-                <Search />
-              </InputGroupAddon>
-              <InputGroupAddon align="inline-end">{/** 12 result  */}</InputGroupAddon>
-            </InputGroup>
-          </div>
-          <Button variant="outline" size="icon">
-            <ArrowRightIcon />
-          </Button>
-        </div>
+
+
+      <ButtonGroup className="w-full">     
+       
+        <SearchBar subjectid={selectedSubject}  />
       </ButtonGroup>
     </div>
   );

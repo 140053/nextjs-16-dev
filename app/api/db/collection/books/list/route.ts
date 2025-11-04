@@ -2,6 +2,14 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { parseMaintext } from "@/lib/utils/maintext";
 
+interface BookItem {
+  bkID: string;
+  tm: string;
+  sm: string;
+  branch: string;
+  Maintext?: string;
+}
+
 export async function GET(req: Request) {
   try {
     const data = await prisma.books.findMany({
@@ -26,7 +34,7 @@ export async function GET(req: Request) {
     );
 
     // ✅ Add parsed data AND remove Maintext from output
-    const processed = serialized.map(item => {
+    const processed = serialized.map((item: BookItem) => {
       const bib = parseMaintext(item.Maintext || "");
 
       return {

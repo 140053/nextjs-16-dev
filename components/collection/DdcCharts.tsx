@@ -197,7 +197,7 @@ export default function DdcCharts({
         <div>
           <h2 className="font-bold text-lg mb-4">
             {title ?? ""}{" "}
-            <span className="text-sm font-normal hidden">({totalBooks} total)</span>
+            <span className="text-sm font-normal ">({totalBooks} total titles)</span>
           </h2>
           <div className="w-full h-80 p-4 border rounded-lg shadow">
             <ResponsiveContainer width="100%" height="100%">

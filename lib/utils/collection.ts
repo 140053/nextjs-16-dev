@@ -16,7 +16,5 @@ export async function getAllCollege(){
     }catch(error){
         console.log("❌ Error fetching data:", error)
         throw new Error("Failed to fetch data")
-    }finally{
-        await prisma.$disconnect()
     }
 }

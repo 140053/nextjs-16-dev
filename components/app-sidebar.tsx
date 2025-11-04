@@ -111,6 +111,10 @@ const data = {
         {
           title: "Groupings",
           url: "/dashboard/collection/groupings",
+        },
+        {
+          title: "Classify",
+          url: "/dashboard/collection/classify/book"
         }
       ]
     },

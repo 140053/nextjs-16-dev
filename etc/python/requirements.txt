@@ -1,1 +1,2 @@
+colorama==0.4.6
 mysql-connector-python==9.5.0

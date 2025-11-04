@@ -64,7 +64,12 @@ export default async function Page({ params }: { params: Promise<{ colid: string
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
           
-          <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" >            
+          <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min p-5" >
+            <div className="flex justify-center text-center">
+              <h1 className=" font-bold text-5xl  m-3 p-5 ">
+                List of Course in College
+              </h1>
+            </div>            
             <CollectionTable columns={OtherColumns} data={data ?? []}  />    
           </div>
         </div>

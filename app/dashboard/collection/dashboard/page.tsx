@@ -21,7 +21,7 @@ export default async function Page() {
       <div className="flex flex-col justify-center m-5">
         <Card>
           <CardHeader>
-            <h2>Collection Mamanagement Analysis</h2>
+            <h2 className="text-4xl">Collection Mamanagement Analysis</h2>
           </CardHeader>
         </Card>
         <DdcCharts
