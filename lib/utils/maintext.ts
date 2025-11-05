@@ -222,7 +222,11 @@ export async function addBookSubject(bib: any, subjectId: string) {
 
     alert("Book added successfully!");
     return data;
-  } catch (error: any) {
-    alert("Failed: " + error.message);
+  } catch (error: unknown) {
+
+    const message =
+    error instanceof Error ? error.message : "Unknown error occurred";
+
+    alert("Failed: " + message);
   }
 }

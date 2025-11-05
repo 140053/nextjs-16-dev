@@ -10,7 +10,7 @@ interface BookItem {
   Maintext?: string;
 }
 
-export async function GET(req: Request) {
+export async function GET(_req: Request) {
   try {
     const data = await prisma.books.findMany({
       //take: 2,

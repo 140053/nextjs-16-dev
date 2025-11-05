@@ -116,6 +116,7 @@ const RemoveBgWithCrop = ({ removebgAPI, uploadPath, fileName, onValidate}: ComP
       setCroppedImage(null)
       toast.success("Background removed successfully!");
     } catch (error) {
+      console.log(error)
       toast.error("Error processing the image.");
     } finally {
       setLoading(false);

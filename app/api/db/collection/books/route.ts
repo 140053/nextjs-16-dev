@@ -50,9 +50,13 @@ export async function GET(req: Request) {
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+
+    const message =
+    error instanceof Error ? error.message : "Unknown error occurred";
+
     return NextResponse.json(
-      { message: "Server Error", error: error.message },
+      { message: "Server Error", error: message },
       { status: 500 }
     );
   }

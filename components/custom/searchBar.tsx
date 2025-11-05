@@ -14,7 +14,7 @@ import { addBookSubject, parseMaintext } from "@/lib/utils/maintext";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 
-
+{/**
 interface SelBooks {
   id: string;
   subject_id: string;
@@ -35,6 +35,7 @@ interface SelBooks {
   created_at: string;  // ISO string
   updated_at: string;  // ISO string
 }
+ */}
 
 export function SearchBar({ subjectid }: { subjectid: string }) {
   const [books, setBooks] = useState<Book[]>([]);     // results

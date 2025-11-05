@@ -36,18 +36,18 @@ export default function DdcCharts({
   const finalRanges = useMemo(
     () =>
       ranges ?? [
-        { label: "000 – 099", min: 0, max: 99.999 },
-        { label: "100 – 199", min: 100, max: 199.999 },
-        { label: "200 – 299", min: 200, max: 299.999 },
-        { label: "300 – 399", min: 300, max: 399.999 },
-        { label: "400 – 499", min: 400, max: 499.999 },
-        { label: "500 – 599", min: 500, max: 599.999 },
-        { label: "600 – 699", min: 600, max: 699.999 },
-        { label: "700 – 799", min: 700, max: 799.999 },
-        { label: "800 – 899", min: 800, max: 899.999 },
-        { label: "900 – 999", min: 900, max: 999.999 },
+        { label: "000 - 099", min: 0, max: 99.999 },
+        { label: "100 - 199", min: 100, max: 199.999 },
+        { label: "200 - 299", min: 200, max: 299.999 },
+        { label: "300 - 399", min: 300, max: 399.999 },
+        { label: "400 - 499", min: 400, max: 499.999 },
+        { label: "500 - 599", min: 500, max: 599.999 },
+        { label: "600 - 699", min: 600, max: 699.999 },
+        { label: "700 - 799", min: 700, max: 799.999 },
+        { label: "800 - 899", min: 800, max: 899.999 },
+        { label: "900 - 999", min: 900, max: 999.999 },
       ],
-    [ranges?.length]
+    [ranges]
   );
 
   const [books, setBooks] = useState<any[] | null>(null);

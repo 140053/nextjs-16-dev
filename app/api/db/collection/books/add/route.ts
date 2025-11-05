@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import {prisma} from "@/lib/prisma";
 
 // ✅ Fix BigInt serialization for JSON
-(BigInt.prototype as any).toJSON = function () {
+BigInt.prototype.toJSON = function (): string {
   return this.toString();
 };
 
@@ -68,12 +68,16 @@ export async function POST(request: Request) {
       },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Insert Error:", error);
+
+    const message =
+      error instanceof Error ? error.message : "Unknown error occurred";
+  
     return NextResponse.json(
       {
         message: "Error inserting data",
-        error: error.message,
+        error: message,
       },
       { status: 500 }
     );
