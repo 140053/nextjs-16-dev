@@ -146,7 +146,7 @@ model collection_by_subjects {
   editor               String?   @db.VarChar(255)
   contributor          String?   @db.Text
   publisher            String?   @db.VarChar(255)
-  copyrights           String?   @db.VarChar(255)
+  copyrights           String    @db.VarChar(255)
   isbn                 String?   @db.VarChar(255)
   call_number          String?   @db.VarChar(255)
   accession_number     String?   @db.VarChar(255)

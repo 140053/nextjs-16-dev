@@ -1,9 +1,11 @@
 "use client";
 
+import { Book } from "@/components/custom/books";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import { ColumnDef } from "@tanstack/react-table";
-import { Eye } from "lucide-react";
+import { ColumnDef, Row } from "@tanstack/react-table";
+import { Eye,Combine } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -198,6 +200,16 @@ export const OtherColumns: ColumnDef<OtherCols>[] = [
       return (
         <div>
           <ButtonGroup>
+             <ButtonGroup>
+              <Button 
+              onClick={() => {
+                 window.location.href =
+                    "/dashboard/collection/groupings/summary/" + id; //add id here
+              }}
+              >
+                <Combine />
+              </Button>
+            </ButtonGroup>
             <ButtonGroup className="hidden sm:flex">
               <Button
                 onClick={() => {
@@ -255,6 +267,7 @@ export const SubjectCols: ColumnDef<OtherCols>[] = [
       return (
         <div>
           <ButtonGroup>
+           
             <ButtonGroup className="hidden sm:flex">
               <Button
                 onClick={() => {
@@ -278,3 +291,80 @@ export const SubjectCols: ColumnDef<OtherCols>[] = [
     },
   },
 ];
+
+
+
+
+
+export const makeColumns = (years: number[]): ColumnDef<any>[] => {
+  const baseColumns: ColumnDef<any>[] = [
+    {
+      accessorKey: "subject",
+      header: "SUBJECT",
+    },
+    {
+      accessorKey: "description",
+      header: "DESCRIPTION",
+    }
+  ];
+
+  const yearColumns = years.flatMap((year) => [
+    {
+      id: `${year}-printed-T`,
+      header: `${year} Printed T`,
+      cell: ({ row }: { row: Row<any> }) => {
+        const val = row.original.years?.[year]?.printed?.T ?? 0;
+        return <div className="text-center">{val}</div>;
+      },
+    },
+    {
+      id: `${year}-printed-V`,
+      header: `${year} Printed V`,
+      cell: ({ row }: { row: Row<any> }) => {
+        const val = row.original.years?.[year]?.printed?.V ?? 0;
+        return <div className="text-center">{val}</div>;
+      },
+    },
+    {
+      id: `${year}-ebooks-T`,
+      header: `${year} E-books T`,
+      cell: ({ row }: { row: Row<any> }) => {
+        const val = row.original.years?.[year]?.ebooks?.T ?? 0;
+        return <div className="text-center">{val}</div>;
+      },
+    },
+  ]);
+
+  const totalColumns: ColumnDef<any>[] = [
+    {
+      id: "total-printed-T",
+      header: "TOTAL Printed T",
+      cell: ({ row }: { row: Row<any> }) => (
+        
+        <div className="text-center">
+          {row.original.total?.printed?.T ?? 0}
+        </div>
+      ),
+    },
+    {
+      id: "total-printed-V",
+      header: "TOTAL Printed V",
+      cell: ({ row }: { row: Row<any> }) => (
+        <div className="text-center">
+          {row.original.total?.printed?.V ?? 0}
+        </div>
+      ),
+    },
+    {
+      id: "total-ebooks-T",
+      header: "TOTAL E-books T",
+      cell: ({ row }: { row: Row<any> }) => (
+        <div className="text-center">
+          {row.original.total?.ebooks?.T ?? 0}
+        </div>
+      ),
+    }
+  ];
+
+  return [...baseColumns, ...yearColumns, ...totalColumns];
+};

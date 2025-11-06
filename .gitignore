@@ -46,3 +46,4 @@ next-env.d.ts
 
 etc/python/t1
 etc/python/__pycache__
+etc/python/pandas/t1

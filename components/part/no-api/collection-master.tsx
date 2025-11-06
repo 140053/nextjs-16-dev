@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
+import { transformCopyright } from "@/utils/transformcp";
+
 export async function getAllCollege() {
   try {
     const data = await prisma.colleges.findMany({
@@ -147,4 +149,36 @@ export async function getBookBySubjects(subjectid: number) {
   } finally {
     await prisma.$disconnect();
   }
+}
+
+
+
+function serializeBigInt(obj: any): any {
+  return JSON.parse(
+    JSON.stringify(obj, (_, v) => (typeof v === "bigint" ? v.toString() : v))
+  );
+}
+
+
+
+export async function getCopyrightRaw(courseId: number) {
+  const data = await prisma.collection_by_subjects.findMany({
+    where: {
+      subjects: {
+        course_id: courseId,
+      },
+      copyrights: {
+        gte: "2023",
+        lte: "2024",
+      },
+    },
+    include: {
+      subjects: true, // needed for transformCopyright
+    },
+  });
+
+  const result = serializeBigInt(data);
+  const processed = transformCopyright(result);
+
+  return { data: processed };
 }
