@@ -34,7 +34,7 @@ selkurso = input(Fore.RED + "Select Course: " + Style.RESET_ALL)
 subjects = getSubjectByCourse(selkurso)
 
 for s in subjects:
-    print(f"{Fore.GREEN}ID: {s['id']} {s['code']} - {s['name']}{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}ID: {s['id']} {s['level']} {s['code']} - {s['name']}{Style.RESET_ALL}")
 
 selSub = input(Fore.RED + "Select Subject: " + Style.RESET_ALL)
 
@@ -78,7 +78,7 @@ with open("title.csv", "r", encoding="utf-8") as f:
             )
 
             if success:
-                print(Fore.GREEN + f"Inserted : {b['Title']}" + Style.RESET_ALL)
+                print(Fore.GREEN + f"Inserted : {b['Title']} : {author}" + Style.RESET_ALL)
             else:
                 print(Fore.RED + "Insert failed!" + Style.RESET_ALL)
 
@@ -86,7 +86,7 @@ with open("title.csv", "r", encoding="utf-8") as f:
             found_writer.writerow([title, b["bkID"], parsed])
 
         else:
-            print(Fore.RED + f"NOT FOUND: {title}" + Style.RESET_ALL)
+            print(Fore.RED + f"NOT FOUND: {title} : {author} " + Style.RESET_ALL)
 
             # ✅ Write to notfound.csv
             notfound_writer.writerow([title])
