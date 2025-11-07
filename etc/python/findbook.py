@@ -42,7 +42,7 @@ selSub = input(Fore.RED + "Select Subject: " + Style.RESET_ALL)
 # CREATE OUTPUT FILES
 # ============================
 found_file = open("found.csv", "w", newline="", encoding="utf-8")
-notfound_file = open("notfound.csv", "w", newline="", encoding="utf-8")
+notfound_file = open(f"notfound-{selSub}.csv", "w", newline="", encoding="utf-8")
 
 found_writer = csv.writer(found_file)
 notfound_writer = csv.writer(notfound_file)
@@ -54,7 +54,7 @@ notfound_writer.writerow(["title"])
 # ============================
 # PROCESS TITLES
 # ============================
-with open("title.csv", "r", encoding="utf-8") as f:
+with open("title.csv", "r", encoding="utf-8-sig", errors="replace") as f:
     reader = csv.DictReader(f)
 
     for row in reader:

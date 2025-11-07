@@ -305,6 +305,11 @@ export const makeColumns = (years: number[]): ColumnDef<any>[] => {
     {
       accessorKey: "description",
       header: "DESCRIPTION",
+      cell: ({row} : {row: Row<any>}) => {
+        const val = row.original.description
+       
+        return <div className="text-wrap">{val}</div>
+      }
     }
   ];
 

@@ -6,7 +6,7 @@ from datetime import datetime
 
 def get_connection():
     return mysql.connector.connect(
-        host="10.2.42.5",
+        host="10.2.42.7",
         user="root",
         password="140053ken!",
         database="nextjs16"
