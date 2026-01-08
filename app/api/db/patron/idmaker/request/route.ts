@@ -46,3 +46,29 @@ export async function GET() {
     )
   }
 }
+
+
+export async function PUT(req: Request) {
+
+  const data = await req.json()
+
+  console.log(data)
+  
+   // 1. update the patron master for the address, email, telephone
+  const p = await prisma.lib_request.create({    
+    data:{
+      patron_id: data.IDnum,
+      name: data.name,
+      telephone: data.telephone,
+      email: data.email,
+      address: data.address,
+      photo: data.photo,
+      esig:data.esig,
+      Degree_Course: data.Degree_Course
+    }
+  })
+
+  return NextResponse.json({
+    success: true,
+  })
+}

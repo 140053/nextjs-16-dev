@@ -7,7 +7,16 @@ import { prisma } from "./prisma"
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey"
 
 export async function loginUser(email: string, password: string) {
-  const user = await prisma.user.findUnique({ where: { email } })
+  const user = await prisma.user.findUnique(
+    {
+       where: { 
+        email: email,
+        branch: {
+          not: "",
+        }
+       } 
+    }
+  )
   if (!user) return null
 
   const bcrypt = await import("bcryptjs")

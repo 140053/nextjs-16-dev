@@ -18,20 +18,22 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { DataTableToolbar } from "./data-table-toolbar"
+import { DataTableToolbar, DataToolbarSearchbyIDnum } from "./data-table-toolbar"
 
 interface DataTableProps<TData extends object, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  toolbar?: React.ReactNode
 }
 
 export function DataTable<TData extends object, TValue>({
   columns,
   data,
+  toolbar,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
-    columns,
+    columns,    
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -41,8 +43,9 @@ export function DataTable<TData extends object, TValue>({
   return (
     <div className="space-y-4">
       {/* ✅ fully typed */}
-      <DataTableToolbar<TData> table={table} />
-
+      
+      { toolbar == "default" ? <DataTableToolbar<TData> table={table} />  : <DataToolbarSearchbyIDnum<TData>  table={table} /> } 
+     
       <div className="rounded-md border">
         <Table>
           <TableHeader>

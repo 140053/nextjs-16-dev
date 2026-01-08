@@ -101,20 +101,12 @@ export default function AddPatron({ patronData, addUser, addSign, urlDst, btntxt
 
       const data = await response.json();
 
-      if(response.ok){
-       
+      if(response.ok){      
         
           toast.success(`Success: ${data.message}`)
           router.push(urlDst)
           fromsts()
       }
-     
-     
-
-
-      
-
-
       setFormData({
         id: 0,
         name: "",
@@ -216,7 +208,7 @@ export default function AddPatron({ patronData, addUser, addSign, urlDst, btntxt
 
               <h1>Add User Photo</h1>
               <h3>*Note: Patron’s attire should match their most recent ID photo on a white background.</h3>
-              <PhotoCrop uploadPath="/api/upload/user" filenameLabel="ID Photo" fileName={formData.IDnum} />
+              {/*<PhotoCrop uploadPath="/api/upload/user" filenameLabel="ID Photo" fileName={formData.IDnum} />*/}
             </div>
             }
             {addSign &&
@@ -246,7 +238,7 @@ export default function AddPatron({ patronData, addUser, addSign, urlDst, btntxt
           </div>
           
 
-          <Button className="button-class w-full text-white bg-green-800" variant="outline" type="submit">
+          <Button className="button-class w-full text-black dark:text-white bg-green-800 hover:bg-amber-500"  type="submit">
             {btntxt}
           </Button>
         </form>

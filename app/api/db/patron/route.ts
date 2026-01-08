@@ -105,7 +105,7 @@ export async function POST(request: Request) {
     // ✅ 4. Insert new record in lib_request (linked to updated patron)
     await prisma.lib_request.create({
       data: {
-        patron_id: updatedPatron.id,
+        patron_id: updatedPatron.IDnum,
         photo: photo || null,
         esig: esig || null,
       },

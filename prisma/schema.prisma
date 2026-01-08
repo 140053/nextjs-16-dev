@@ -15,6 +15,7 @@ model User {
   name      String?
   avatar    String?
   role      Role     @default(USER)
+  branch    String?
   createdAt DateTime @default(now())
 }
 
@@ -25,14 +26,14 @@ model patron_master {
   Degree_Course  String          @db.VarChar(255)
   User_Class     String          @db.VarChar(100)
   Year_Level     String          @db.VarChar(100)
-  IDnum          String          @unique @db.VarChar(100)
+  IDnum          String          @unique @db.VarChar(50)
   DateApplied    String?         @db.VarChar(255)
   DateExpired    String?         @db.VarChar(255)
   email          String?         @db.VarChar(255)
   gender         users_gender?
   campus         String          @db.VarChar(255)
   Bkloan         String?         @db.VarChar(255)
-  telephone      String?         @db.VarChar(255)
+  telephone      String          @default("None") @db.VarChar(255)
   Overdue        String?         @db.VarChar(255)
   remarks        String?         @db.VarChar(255)
   suspended      String?         @db.VarChar(255)
@@ -40,65 +41,58 @@ model patron_master {
   photo          String?         @db.VarChar(150)
   esig           String?         @db.VarChar(150)
   reg_date       DateTime?       @default(now()) @db.Timestamp(0)
+  College        String          @db.VarChar(100)
+  Course_Code    String          @db.VarChar(50)
+  lib_forprint   lib_forprint[]
   lib_pendings   lib_pending[]
   lib_requests   lib_request[]
   libman_patrons libman_patron[]
   userlogs       userlogs[]
 }
 
-model libman_patron {
-  id        Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id Int           @db.UnsignedInt
-  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
-  patron    patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
-
-  @@index([patron_id], map: "libman_patron_patron_id_fkey")
-}
-
 model lib_request {
-  id        Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id Int           @db.UnsignedInt
-  photo     String?       @db.VarChar(150)
-  esig      String?       @db.VarChar(150)
-  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
-  patron    patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+  id            Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id     String        @db.VarChar(50)
+  photo         String?       @db.VarChar(150)
+  esig          String?       @db.VarChar(150)
+  reg_date      DateTime?     @default(now()) @db.Timestamp(0)
+  Degree_Course String        @db.VarChar(255)
+  address       String        @db.VarChar(255)
+  email         String        @db.VarChar(255)
+  name          String        @db.VarChar(150)
+  telephone     String        @db.VarChar(255)
+  patron        patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
 
   @@index([patron_id], map: "lib_request_patron_id_fkey")
 }
 
+model libman_patron {
+  id        Int           @id @default(autoincrement()) @db.UnsignedInt
+  patron_id String        @db.VarChar(50)
+  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
+  patron    patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
+
+  @@index([patron_id], map: "libman_patron_patron_id_fkey")
+}
+
 model lib_pending {
   id        Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id Int           @db.UnsignedInt
+  patron_id String        @db.VarChar(50)
   photo     String?       @db.VarChar(150)
   esig      String?       @db.VarChar(150)
   reg_date  DateTime?     @default(now()) @db.Timestamp(0)
-  patron    patron_master @relation(fields: [patron_id], references: [id], onDelete: Cascade)
+  patron    patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
 
   @@index([patron_id], map: "lib_pending_patron_id_fkey")
 }
 
 model lib_forprint {
-  id            Int           @id @default(autoincrement()) @db.UnsignedInt
-  name          String        @db.VarChar(255)
-  address       String        @db.VarChar(255)
-  Degree_Course String        @db.VarChar(255)
-  User_Class    String        @db.VarChar(100)
-  Year_Level    String        @db.VarChar(100)
-  IDnum         String        @db.VarChar(100)
-  DateApplied   String?       @db.VarChar(255)
-  DateExpired   String?       @db.VarChar(255)
-  email         String?       @db.VarChar(255)
-  gender        users_gender?
-  campus        String        @db.VarChar(255)
-  Bkloan        String?       @db.VarChar(255)
-  telephone     String?       @db.VarChar(255)
-  Overdue       String?       @db.VarChar(255)
-  remarks       String?       @db.VarChar(255)
-  suspended     String?       @db.VarChar(255)
-  tag           String?       @db.VarChar(255)
-  photo         String?       @db.VarChar(150)
-  esig          String?       @db.VarChar(150)
-  reg_date      DateTime?     @default(now()) @db.Timestamp(0)
+  id        Int           @id @default(autoincrement()) @db.UnsignedInt
+  reg_date  DateTime      @default(now()) @db.Timestamp(0)
+  patron_id String        @db.VarChar(50)
+  patron    patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
+
+  @@index([patron_id], map: "lib_forprint_patron_id_key")
 }
 
 model colleges {

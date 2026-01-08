@@ -4,45 +4,25 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
-interface UserData {
-  id: number;
-  name: string;
-  address: string;
-  Degree_Course: string;
-  User_Class: string;
-  Year_Level: string;
-  IDnum: string;
-  DateApplied: string | null;
-  DateExpired: string | null;
-  email: string;
-  gender: string;
-  campus: string;
-  Bkloan: string | null;
-  telephone: string | null;
-  Overdue: string | null;
-  remarks: string | null;
-  suspended: string | null;
-  tag: string | null;
-  reg_date: string;
-}
+import { PatronIntf } from "@/types/Patron";
 
 interface ApiResponse {
   message: string;
-  data: UserData[];
+  data: PatronIntf[];
 }
 
 interface IdvalidateProps {
   apiURL: string;
-  onValidate: (data: UserData | null) => void;
+  onValidate: (data: PatronIntf | null) => void;
 
 }
 
 export default function Idvalidate({ apiURL, onValidate }: IdvalidateProps) {
   const [IDnum, setIDnum] = useState<string>("");
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<PatronIntf | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  //const [Value, setValue ] = useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -73,7 +53,8 @@ export default function Idvalidate({ apiURL, onValidate }: IdvalidateProps) {
 
       if (result.data.length > 0) {
         const fetchedUser = result.data[0];
-        console.log("Fetched user data:", fetchedUser);
+        //console.log("Fetched user data:", fetchedUser);
+        toast.success('Student Number Found!');
         setUserData(fetchedUser);
         onValidate(fetchedUser);
       } else {
@@ -90,6 +71,10 @@ export default function Idvalidate({ apiURL, onValidate }: IdvalidateProps) {
     }
   };
 
+  //const handleChange = (e: ChangeEvent<HTMLInputElement>) =>{
+  //  setValue(e.target.value.toUpperCase());
+  //}
+
   return (
     <div className="w-full max-w-lg mx-auto">
       <form onSubmit={handleSubmit} className="">
@@ -98,11 +83,11 @@ export default function Idvalidate({ apiURL, onValidate }: IdvalidateProps) {
             type="text"
             placeholder="Enter Student Number"
             value={IDnum}
-            onChange={(e) => setIDnum(e.target.value)}
+            onChange={(e) => setIDnum(e.target.value.toLocaleUpperCase())}
             disabled={loading}
-            className="flex-1 dark:text-green-900"
+            className="flex-1 dark:text-green-900 shadow-md shadow-gray-600 border-2"
           />
-          <Button type="submit" disabled={loading}>
+          <Button variant="default" type="submit" disabled={loading} className=" bg-green-400 hover:bg-green-800 text-white shadow-amber-200 shadow-md">
             {loading ? "Loading..." : "Submit"}
           </Button>
         </div>

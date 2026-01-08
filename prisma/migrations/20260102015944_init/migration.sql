@@ -6,6 +6,7 @@ CREATE TABLE `User` (
     `name` VARCHAR(191) NULL,
     `avatar` VARCHAR(191) NULL,
     `role` ENUM('ADMIN', 'STAFF', 'USER') NOT NULL DEFAULT 'USER',
+    `branch` VARCHAR(191) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     UNIQUE INDEX `User_email_key`(`email`),
@@ -20,7 +21,7 @@ CREATE TABLE `patron_master` (
     `Degree_Course` VARCHAR(255) NOT NULL,
     `User_Class` VARCHAR(100) NOT NULL,
     `Year_Level` VARCHAR(100) NOT NULL,
-    `IDnum` VARCHAR(100) NOT NULL,
+    `IDnum` VARCHAR(50) NOT NULL,
     `DateApplied` VARCHAR(255) NULL,
     `DateExpired` VARCHAR(255) NULL,
     `email` VARCHAR(255) NULL,
@@ -43,31 +44,34 @@ CREATE TABLE `patron_master` (
 -- CreateTable
 CREATE TABLE `libman_patron` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-    `patron_id` INTEGER UNSIGNED NOT NULL,
+    `patron_id` VARCHAR(50) NOT NULL,
     `reg_date` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
 
+    INDEX `libman_patron_patron_id_fkey`(`patron_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `lib_request` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-    `patron_id` INTEGER UNSIGNED NOT NULL,
+    `patron_id` VARCHAR(50) NOT NULL,
     `photo` VARCHAR(150) NULL,
     `esig` VARCHAR(150) NULL,
     `reg_date` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
 
+    INDEX `lib_request_patron_id_fkey`(`patron_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `lib_pending` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-    `patron_id` INTEGER UNSIGNED NOT NULL,
+    `patron_id` VARCHAR(50) NOT NULL,
     `photo` VARCHAR(150) NULL,
     `esig` VARCHAR(150) NULL,
     `reg_date` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
 
+    INDEX `lib_pending_patron_id_fkey`(`patron_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -79,7 +83,7 @@ CREATE TABLE `lib_forprint` (
     `Degree_Course` VARCHAR(255) NOT NULL,
     `User_Class` VARCHAR(100) NOT NULL,
     `Year_Level` VARCHAR(100) NOT NULL,
-    `IDnum` VARCHAR(100) NOT NULL,
+    `IDnum` VARCHAR(50) NOT NULL,
     `DateApplied` VARCHAR(255) NULL,
     `DateExpired` VARCHAR(255) NULL,
     `email` VARCHAR(255) NULL,
@@ -94,7 +98,10 @@ CREATE TABLE `lib_forprint` (
     `photo` VARCHAR(150) NULL,
     `esig` VARCHAR(150) NULL,
     `reg_date` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `status` VARCHAR(100) NULL,
+    `print` TIMESTAMP NULL,
 
+    UNIQUE INDEX `lib_forprint_IDnum_key`(`IDnum`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -134,7 +141,6 @@ CREATE TABLE `subjects` (
     `created_at` TIMESTAMP(0) NULL,
     `updated_at` TIMESTAMP(0) NULL,
 
-    UNIQUE INDEX `subjects_code_unique`(`code`),
     INDEX `subjects_course_id_foreign`(`course_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -146,9 +152,10 @@ CREATE TABLE `collection_by_subjects` (
     `bkid` VARCHAR(255) NOT NULL,
     `title` VARCHAR(255) NOT NULL,
     `author` TEXT NULL,
+    `editor` VARCHAR(255) NULL,
     `contributor` TEXT NULL,
     `publisher` VARCHAR(255) NULL,
-    `copyrights` VARCHAR(255) NULL,
+    `copyrights` VARCHAR(255) NOT NULL,
     `isbn` VARCHAR(255) NULL,
     `call_number` VARCHAR(255) NULL,
     `accession_number` VARCHAR(255) NULL,
@@ -159,6 +166,7 @@ CREATE TABLE `collection_by_subjects` (
     `is_fil` BOOLEAN NOT NULL DEFAULT false,
     `created_at` TIMESTAMP(0) NULL,
     `updated_at` TIMESTAMP(0) NULL,
+    `copies` VARCHAR(45) NULL,
 
     INDEX `collection_by_subjects_subject_id_foreign`(`subject_id`),
     PRIMARY KEY (`id`)
@@ -214,13 +222,13 @@ CREATE TABLE `userlogs` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `libman_patron` ADD CONSTRAINT `libman_patron_patron_id_fkey` FOREIGN KEY (`patron_id`) REFERENCES `patron_master`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `libman_patron` ADD CONSTRAINT `libman_patron_patron_id_fkey` FOREIGN KEY (`patron_id`) REFERENCES `patron_master`(`IDnum`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `lib_request` ADD CONSTRAINT `lib_request_patron_id_fkey` FOREIGN KEY (`patron_id`) REFERENCES `patron_master`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `lib_request` ADD CONSTRAINT `lib_request_patron_id_fkey` FOREIGN KEY (`patron_id`) REFERENCES `patron_master`(`IDnum`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `lib_pending` ADD CONSTRAINT `lib_pending_patron_id_fkey` FOREIGN KEY (`patron_id`) REFERENCES `patron_master`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `lib_pending` ADD CONSTRAINT `lib_pending_patron_id_fkey` FOREIGN KEY (`patron_id`) REFERENCES `patron_master`(`IDnum`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `courses` ADD CONSTRAINT `courses_college_id_foreign` FOREIGN KEY (`college_id`) REFERENCES `colleges`(`id`) ON DELETE CASCADE ON UPDATE NO ACTION;

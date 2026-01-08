@@ -45,19 +45,19 @@ const data = {
       items: [
         {
           title: "Request",
-          url: "#",
+          url: "/dashboard/idmaker/request",
         },
         {
           title: "Pending",
-          url: "#",
+          url: "/dashboard/idmaker/pending",
         },
         {
           title: "For Print",
-          url: "#",
+          url: "/dashboard/idmaker/forprint",
         },
         {
           title: "Printed",
-          url: "#",
+          url: "/dashboard/idmaker/printed",
         },
         {
           title: "Form",
