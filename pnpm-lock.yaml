@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@daypilot/daypilot-lite-react':
+        specifier: ^5.2.0
+        version: 5.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@prisma/client':
         specifier: ^6.18.0
         version: 6.18.0(prisma@6.18.0(typescript@5.9.3))(typescript@5.9.3)
@@ -199,6 +202,15 @@ packages:
   '@babel/types@7.28.5':
     resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
+
+  '@daypilot/daypilot-lite-javascript@5.2.0':
+    resolution: {integrity: sha512-zzTh1GMWi7DfAgsghfZ3h7kY8FYMj6IjM1HVgLFBw5UU8ey8n5XA9Ui4uwT+pCOtZuVuEo6I95VKHsAudrR6jg==}
+
+  '@daypilot/daypilot-lite-react@5.2.0':
+    resolution: {integrity: sha512-f5jUUDNzPplgtXYguVFo3JWZrHeiF99CzYhTO4DK380ACMmD1GEqX1qQQyGx2r1qAxXVVm+Ju6R2CEiQthPJoQ==}
+    peerDependencies:
+      react: '>=16.0.0'
+      react-dom: '>=16.0.0'
 
   '@emnapi/core@1.7.0':
     resolution: {integrity: sha512-pJdKGq/1iquWYtv1RRSljZklxHCOCAJFJrImO5ZLKPJVJlVUcs8yFwNQlqS0Lo8xT1VAXXTCZocF9n26FWEKsw==}
@@ -1445,6 +1457,9 @@ packages:
 
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  create-react-class@15.7.0:
+    resolution: {integrity: sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==}
 
   cropperjs@1.6.2:
     resolution: {integrity: sha512-nhymn9GdnV3CqiEHJVai54TULFAE3VshJTXSqSJKa8yXAKyBKDWdhHarnlIPrshJ0WMFTGuFvG02YjLXfPiuOA==}
@@ -2958,6 +2973,15 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
+  '@daypilot/daypilot-lite-javascript@5.2.0': {}
+
+  '@daypilot/daypilot-lite-react@5.2.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@daypilot/daypilot-lite-javascript': 5.2.0
+      create-react-class: 15.7.0
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+
   '@emnapi/core@1.7.0':
     dependencies:
       '@emnapi/wasi-threads': 1.1.0
@@ -4157,6 +4181,11 @@ snapshots:
   consola@3.4.2: {}
 
   convert-source-map@2.0.0: {}
+
+  create-react-class@15.7.0:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
 
   cropperjs@1.6.2: {}
 
