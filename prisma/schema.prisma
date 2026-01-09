@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  output   = "../src/lib/generated/prisma"
 }
 
 datasource db {
@@ -33,7 +33,7 @@ model patron_master {
   gender         users_gender?
   campus         String          @db.VarChar(255)
   Bkloan         String?         @db.VarChar(255)
-  telephone      String          @default("None") @db.VarChar(255)
+  telephone      String?          @default("None") @db.VarChar(255)
   Overdue        String?         @db.VarChar(255)
   remarks        String?         @db.VarChar(255)
   suspended      String?         @db.VarChar(255)
@@ -41,8 +41,8 @@ model patron_master {
   photo          String?         @db.VarChar(150)
   esig           String?         @db.VarChar(150)
   reg_date       DateTime?       @default(now()) @db.Timestamp(0)
-  College        String          @db.VarChar(100)
-  Course_Code    String          @db.VarChar(50)
+  College        String?          @db.VarChar(100)
+  Course_Code    String?          @db.VarChar(50)
   lib_forprint   lib_forprint[]
   lib_pendings   lib_pending[]
   lib_requests   lib_request[]

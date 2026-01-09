@@ -1,47 +1,0 @@
-Maintext: 
-
-'<001>Biofuels for transport : global potential and implications for sustainable energy and agriculture\x1E
-<002>\x1E
-<003>\x1E
-<004>\x1E
-<005>\x1E
-<006>\x1E
-<007>\x1E
-<008>Worldwatch Institute\x1E
-<009>London\x1E
-<0010>Earthscan\x1E
-<0011>2007\x1E
-<0012>\x1E
-<0013>452 p.\x1E
-<0014>ill.\x1E
-<0015>24 cm.\x1E
-<0016>\x1E
-<0017>\x1E
-<0018>Includes bibliographic references and index\x1E
-<0019>9781844074228\x1E
-<0020>Biomass energy; Waste products as fuel\x1E
-<0021>\x1E
-<0022>\x1E
-<0023>\x1E
-<0024>RES\x1E
-<0025>GC-BTC 333.95 B52b 2007\x1E
-<0026>CBSUA-MLIB00000255\x1E
-<0027>English\x1E
-<0028>GC-BTC - Circulation section\x1E
-<0029>24134\x1E
-<0030>1\x1E
-<0031>1\x1E
-<0032>0\x1E
-<0033>\x1E
-<0034>\x1E
-<0035>\x1E
-<0036>0\x1E
-<0037>\x1E
-<0038>\x1E
-<0039>Text\x1E
-<0040>Unmediated\x1E
-<0041>Volume\x1E
-<0042>\x1E',
-
-
-<001>The life and works of Rizal: new general education curriculum compliant<002><003><004>Ariola, Mariano M.<005><006><007><008><009>Manila<0010>Unlimited Books Library Services & Publishing Inc.<0011>2018<0012><0013>244<0014><0015>26 cm.<0016><0017><0018><0019>9786214270217<0020>Biography - Jose Rizal<0021><0022><0023><0024><0025>FIL 959.9 Ar43 2018<0026>MLIB00024422; MLIB00024468; MLIB00024459<0027>English<0028>FIL - Reserve/Circulation<0029>30291; 30290; 30289; 885<0030>1<0031>1<0032>0<0033><0034><0035><0036>0<0037><0038><0039>Text<0040>Unmediated<0041>Volume<0042>

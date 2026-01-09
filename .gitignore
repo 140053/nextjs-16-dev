@@ -40,10 +40,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/lib/generated/prisma
+/src/lib/generated/prisma
 
-/lib/generated/prisma
+/src/lib/generated/prisma
 
-etc/python/t1
-etc/python/__pycache__
-etc/python/pandas/t1
+/src/etc/python/t1
+/src/etc/python/__pycache__
+/src/etc/python/pandas/t1
+
+
+
+#backend\
+backend/t1
+backend/__pycache__
