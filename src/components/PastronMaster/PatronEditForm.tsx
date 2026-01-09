@@ -1,9 +1,29 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { patronMasterSchema } from "@/ZodSchema/patronMasterSchema";
 import { z } from "zod";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "../ui/input-group";
+import {
+  AtSign,
+  IdCardLanyard,
+  MapPinHouse,
+  School,
+  Transgender,
+  User,
+} from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export type PatronMasterForm = z.infer<typeof patronMasterSchema>;
 
@@ -16,71 +36,142 @@ export default function PatronMasterEditForm() {
     },
   });
 
-  const { register, handleSubmit, formState } = form;
+  const { handleSubmit, control, register, formState } = form;
   const { errors, isSubmitting } = formState;
 
   const onSubmit = async (data: PatronMasterForm) => {
     console.log("Form Data:", data);
-
     // TODO: send to API
     // await fetch("/api/patron", { method: "PUT", body: JSON.stringify(data) })
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
-      
-      <div>
-        <label>Name</label>
-        <input {...register("name")} className="input" />
-        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-      </div>
+    <div className="flex justify-center">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-xl">
+        {/* Name */}
+        <div>
+          <InputGroup>
+            <InputGroupInput
+              placeholder="Name..."
+              {...register("name")}
+              className="input"
+            />
+            <InputGroupAddon>
+              <User />
+            </InputGroupAddon>
+          </InputGroup>
+          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+        </div>
 
-      <div>
-        <label>Address</label>
-        <input {...register("address")} className="input" />
-        {errors.address && <p className="text-red-500">{errors.address.message}</p>}
-      </div>
+        {/* Address */}
+        <div>
+          <InputGroup>
+            <InputGroupInput
+              placeholder="Address..."
+              {...register("address")}
+              className="input"
+            />
+            <InputGroupAddon>
+              <MapPinHouse />
+            </InputGroupAddon>
+          </InputGroup>
+          {errors.address && (
+            <p className="text-red-500">{errors.address.message}</p>
+          )}
+        </div>
 
-      <div>
-        <label>ID Number</label>
-        <input {...register("IDnum")} className="input" />
-        {errors.IDnum && <p className="text-red-500">{errors.IDnum.message}</p>}
-      </div>
+        {/* ID Number */}
+        <div>
+          <InputGroup>
+            <InputGroupInput
+              placeholder="ID Number..."
+              {...register("IDnum")}
+              className="input"
+            />
+            <InputGroupAddon>
+              <IdCardLanyard />
+            </InputGroupAddon>
+          </InputGroup>
+          {errors.IDnum && (
+            <p className="text-red-500">{errors.IDnum.message}</p>
+          )}
+        </div>
 
-      <div>
-        <label>Email</label>
-        <input {...register("email")} className="input" />
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-      </div>
+        {/* Email */}
+        <div>
+          <InputGroup>
+            <InputGroupInput
+              placeholder="Email..."
+              {...register("email")}
+              className="input"
+            />
+            <InputGroupAddon>
+              <AtSign />
+            </InputGroupAddon>
+          </InputGroup>
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+        </div>
 
-      <div>
-        <label>Gender</label>
-        <select {...register("gender")} className="input">
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-        </select>
-        {errors.gender && <p className="text-red-500">{errors.gender.message}</p>}
-      </div>
+        {/* Gender (fixed as ShadCN Select + icon) */}
+        <div className="">
+          <InputGroup>
+                <Select {...register("gender")} >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Gender" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+                <InputGroupAddon>
+                  <Transgender className="mr-2" />
+                </InputGroupAddon> 
+          </InputGroup> 
+          {errors.gender && (
+            <p className="text-red-500 mt-1">{errors.gender.message}</p>
+          )}
+        </div>
 
-      <div>
-        <label>Campus</label>
-        <input {...register("campus")} className="input" />
-        {errors.campus && <p className="text-red-500">{errors.campus.message}</p>}
-      </div>
+        {/* Campus */}
+        <div>
+          <InputGroup>
+            <InputGroupInput
+              placeholder="Campus..."
+              {...register("campus")}
+              className="input"
+            />
+            <InputGroupAddon>
+              <School />
+            </InputGroupAddon>
+          </InputGroup>
+          {errors.campus && (
+            <p className="text-red-500">{errors.campus.message}</p>
+          )}
+        </div>
 
-      <div>
-        <label>Telephone</label>
-        <input {...register("telephone")} className="input" />
-      </div>
+        {/* Telephone */}
+        <div>
+          <InputGroup>
+            <InputGroupInput
+              placeholder="Telephone..."
+              {...register("telephone")}
+              className="input"
+            />
+          </InputGroup>
+        </div>
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
-      >
-        {isSubmitting ? "Saving..." : "Save"}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          {isSubmitting ? "Saving..." : "Save"}
+        </button>
+      </form>
+    </div>
   );
 }
