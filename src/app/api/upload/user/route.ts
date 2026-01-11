@@ -1,14 +1,3 @@
-/*
-New Features Added
-✅ Custom upload path (e.g., upload to /public/uploads or /public/avatars)
-✅ Customizable filename label (e.g., "Set your custom filename")
-✅ User-defined filenames (e.g., "profile-picture.jpg")
-✅ Auto-creates directories if they don’t exist
-
-*/
-
-
-
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";

@@ -36,18 +36,30 @@ export interface Filename {
 export type IdMakerForPrintTypes = {
   id: number;
   patron_id: string;
-  
+  photo: string | null;
+  esig: string | null;
   reg_date?: string | Date | null;
-  patron: {
-    name:string;
-    address:string;
-    IDnum: string;
-    Degree_Course: string;
-    email: string | null;
-    telephone: string | null;
+  name:string;
+  address:string;  
+  Degree_Course: string;   
+  patron: {    
     gender: string | null;
-    photo:string | null
-    esig: string | null
-  } | null
+  } | null  
+  
+};
+
+
+export type IdMakerPrintedTypes = {
+  id: number;
+  patron_id: string;    
+  patron: {    
+    photo: string | null;
+    esig: string | null;
+    reg_date?: string | Date | null;
+    name:string;
+    address:string;  
+    Degree_Course: string; 
+    gender: string | null;
+  } | null  
   
 };

@@ -103,3 +103,139 @@ def migrate_patron_master(db1_cfg, db2_cfg):
             src_conn.close()
         if dst_conn:
             dst_conn.close()
+
+
+        
+
+def migrate_College(db1_cfg, db2_cfg):
+    """
+    Copy College from the idmaker to the database
+    """
+    src_conn = None
+    dst_conn = None
+    src_cursor = None
+    dst_cursor = None
+
+    try:
+        # Connect to source DB
+        src_conn = get_connection(**db1_cfg)
+        src_cursor = src_conn.cursor(dictionary=True)
+
+        # Connect to destination DB
+        dst_conn = get_connection(**db2_cfg)
+        dst_cursor = dst_conn.cursor()
+
+        # Fetch data
+        src_cursor.execute("SELECT * FROM colleges")
+        rows = src_cursor.fetchall()
+
+
+        if not rows:
+            print("No records found.")
+            return
+        
+
+        insert_sql = """
+        INSERT INTO colleges (
+            name, code
+        ) VALUES (
+            %(name)s, %(code)s
+        )
+        ON DUPLICATE KEY UPDATE
+            name = VALUES(name),
+            code = VALUES(code)            
+        """
+
+        dst_cursor.executemany(insert_sql, rows)
+        dst_conn.commit()
+
+        print(f"✅ Migrated {dst_cursor.rowcount} records successfully.")
+
+
+    except Exception as e:
+        dst_conn.rollback()
+        print("❌ Migration failed:", e)
+    finally:
+        if src_cursor:
+            src_cursor.close()
+        if dst_cursor:
+            dst_cursor.close()
+        if src_conn:
+            src_conn.close()
+        if dst_conn:
+            dst_conn.close()
+
+def migrate_Course(db1_cfg, db2_cfg):
+    """
+    Copy College from the idmaker to the database
+    """
+    src_conn = None
+    dst_conn = None
+    src_cursor = None
+    dst_cursor = None
+
+    try:
+        # Connect to source DB
+        src_conn = get_connection(**db1_cfg)
+        src_cursor = src_conn.cursor(dictionary=True)
+
+        # Connect to destination DB
+        dst_conn = get_connection(**db2_cfg)
+        dst_cursor = dst_conn.cursor()
+
+        # Fetch data
+        src_cursor.execute("SELECT * FROM courses")
+        rows = src_cursor.fetchall()
+
+
+        if not rows:
+            print("No records found.")
+            return
+        
+
+        insert_sql = """
+        INSERT INTO courses (
+            college_id, name, code
+        ) VALUES (
+            %(college_id)s,%(name)s, %(code)s
+        )
+        ON DUPLICATE KEY UPDATE
+            college_id = VALUES(college_id),
+            name = VALUES(name),
+            code = VALUES(code)            
+        """
+
+        dst_cursor.executemany(insert_sql, rows)
+        dst_conn.commit()
+
+        print(f"✅ Migrated {dst_cursor.rowcount} records successfully.")
+
+
+    except Exception as e:
+        dst_conn.rollback()
+        print("❌ Migration failed:", e)
+    finally:
+        if src_cursor:
+            src_cursor.close()
+        if dst_cursor:
+            dst_cursor.close()
+        if src_conn:
+            src_conn.close()
+        if dst_conn:
+            dst_conn.close()
+
+
+
+
+if __name__ == "__main__":
+    get_connection()
+    migrate_College()
+    migrate_patron_master()
+        
+
+
+
+    
+
+
+    

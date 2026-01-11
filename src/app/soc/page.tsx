@@ -2,7 +2,7 @@
 
 
 import { useEffect, useState } from "react";
-import { getSocket } from "@/app/lib/socket";
+import { getSocket } from "@/lib/socket";
 
 export default function Home() {
 

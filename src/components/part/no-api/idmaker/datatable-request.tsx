@@ -1,4 +1,4 @@
-import { columns, idPatron } from "@/components/custom/idmaker-columns";
+import { columns, idPatron} from "@/components/custom/idmaker-columns";
 import { DataTable } from "@/components/custom/data-table";
 import { getAllRequest } from "@/lib/utils/idmaker";
 

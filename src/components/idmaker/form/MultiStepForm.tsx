@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StepOne from "./steps/StepOne";
 import StepTwo from "./steps/StepTwo";
 import StepThree from "./steps/StepThree";
@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { PatronIntf } from "@/types/Patron";
 import StepFour from "./steps/StepFour";
 import StepFive from "./steps/StepFive";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 const steps = ["Student Information", "Course", "Upload Photo", "Upload Signature" ,  "Review"];
@@ -41,6 +43,7 @@ export default function MultiStepForm({patron}: pageProp) {
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState<FormData>(patron || defaultData);
+  const router = useRouter();
 
   
 
@@ -98,6 +101,10 @@ export default function MultiStepForm({patron}: pageProp) {
       if(!r.ok){
         console.log("error")
       }
+
+      toast.success("Request Send Successfully")
+
+      router.push("/mobile/done");
 
       //Make Redirect later 
 

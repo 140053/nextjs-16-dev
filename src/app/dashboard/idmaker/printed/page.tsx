@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/sidebar"
 import { redirect } from "next/navigation"
 import { getSession } from "@/lib/auth"
-import IdmakerPending from "@/components/part/no-api/idmaker/datatable-pending"
+import IdmakerPrinted from "@/components/part/no-api/idmaker/datatable-printed"
 
 
 
@@ -53,7 +53,7 @@ export default async function printedPage() {
           
           <div className="bg-muted/50 min-h-screen flex-1 rounded-xl md:min-h-min" >
             <div className="p-4">Main Content Area</div>
-            <IdmakerPending />
+            <IdmakerPrinted />
           </div>
         </div>
       </SidebarInset>

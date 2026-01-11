@@ -77,20 +77,32 @@ model libman_patron {
 
 model lib_pending {
   id        Int           @id @default(autoincrement()) @db.UnsignedInt
-  patron_id String        @db.VarChar(50)
-  photo     String?       @db.VarChar(150)
-  esig      String?       @db.VarChar(150)
-  reg_date  DateTime?     @default(now()) @db.Timestamp(0)
-  patron    patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
+  patron_id     String        @db.VarChar(50)
+  photo         String?       @db.VarChar(150)
+  esig          String?       @db.VarChar(150)
+  reg_date      DateTime?     @default(now()) @db.Timestamp(0)
+  Degree_Course String        @db.VarChar(255)
+  address       String        @db.VarChar(255)
+  email         String        @db.VarChar(255)
+  name          String        @db.VarChar(150)
+  telephone     String        @db.VarChar(255)
+  patron        patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
 
   @@index([patron_id], map: "lib_pending_patron_id_fkey")
 }
 
 model lib_forprint {
   id        Int           @id @default(autoincrement()) @db.UnsignedInt
-  reg_date  DateTime      @default(now()) @db.Timestamp(0)
-  patron_id String        @db.VarChar(50)
-  patron    patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
+  patron_id     String        @db.VarChar(50)
+  photo         String?       @db.VarChar(150)
+  esig          String?       @db.VarChar(150)
+  reg_date      DateTime?     @default(now()) @db.Timestamp(0)
+  Degree_Course String        @db.VarChar(255)
+  address       String        @db.VarChar(255)
+  email         String        @db.VarChar(255)
+  name          String        @db.VarChar(150)
+  telephone     String        @db.VarChar(255)
+  patron        patron_master @relation(fields: [patron_id], references: [IDnum], onDelete: Cascade)
 
   @@index([patron_id], map: "lib_forprint_patron_id_key")
 }
